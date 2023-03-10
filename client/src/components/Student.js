@@ -13,7 +13,7 @@ const Student = () => {
       .get(`/api/students/${studentId}`)
       .then((res) => {
         console.log("HHHHHHHH", res.data);
-        setStudent(res.data[0]);
+        setStudent(res.data);
       })
       .catch((err) => setError(err.response.data.message));
   }, [studentId]);
@@ -21,10 +21,13 @@ const Student = () => {
   return (
     <div>
       {student && (
-        <div>
+        <div className="bg-white rounded-md p-8">
           <h2 className="text-3xl">Student</h2>
-          <div>{student.firstname}</div>
-          <div>{student.lastname}</div> <div>{student.email}</div>
+          <div className="">
+            <div>Firstname: {student.firstname}</div>
+            <div>Lastname: {student.lastname}</div>
+            <div>Email: {student.email}</div>
+          </div>
         </div>
       )}
       {error && <div>{error}</div>}

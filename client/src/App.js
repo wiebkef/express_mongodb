@@ -7,7 +7,7 @@ import NewStudent from "./components/NewStudent";
 
 function App() {
   return (
-    <div className="App bg-blue-100 h-screen">
+    <div className="App h-screen">
       <Header />
       <div className="flex items-center justify-content-center">
         <Routes>

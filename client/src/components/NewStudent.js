@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "../axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 const NewStudent = () => {
   const [form, setForm] = useState({});
-  const [error, setError] = useState();
+  const [error, setError] = useState({});
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,51 +13,59 @@ const NewStudent = () => {
       .post(`/api/students/`, form)
       .then((res) => {
         console.log("hat geklappt", res.data);
+        navigate(`/students/${res.data._id}`);
       })
-      .catch((err) => setError(err.response.data.message));
-    setForm("");
+      .catch((err) => {
+        console.log("wuuuuuuuuuuuuuuuuuu", err.response.data.errors);
+        setError(err.response.data.errors);
+      });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
   return (
-    <form className="flex flex-col gap-2 rounded-lg">
-      <h2>Add student</h2>
+    <form className="flex flex-col rounded-lg mx-auto bg-blue-100 px-8 pb-8">
+      <h2 className="text-xl font-bold py-3">Enter new student record</h2>
       <input
         placeholder="Firstname"
         name="firstname"
-        onChange={(e) => {
-          console.log(e.target.name);
-          setForm({
-            ...form,
-            firstname: e.target.value,
-          });
-        }}
+        onChange={handleChange}
+        className="mt-3 px-2"
       />
+      {error.firstname ? (
+        <p className="text-red-600 m-0 text-xs text-start">
+          {error.firstname.message}
+        </p>
+      ) : (
+        <p></p>
+      )}
       <input
         placeholder="Lastname"
         name="lastname"
-        onChange={(e) => {
-          console.log(e.target.name);
-
-          setForm({
-            ...form,
-            lastname: e.target.value,
-          });
-        }}
+        onChange={handleChange}
+        className="mt-3 px-2"
       />
+      {error.lastname && (
+        <span className="text-red-600 m-0 text-xs text-start">
+          {error.lastname.message}
+        </span>
+      )}
       <input
         placeholder="Email"
         name="email"
-        onChange={(e) => {
-          console.log(e.target.name);
-
-          setForm({
-            ...form,
-            email: e.target.value,
-          });
-        }}
+        onChange={handleChange}
+        className="mt-3 px-2"
       />
-      <button onClick={handleSubmit} className="bg-white">
-        Add
+      {error.email && (
+        <span className="text-red-600 m-0 text-xs text-start">
+          {error.email.message}
+        </span>
+      )}
+      <button onClick={handleSubmit} className="bg-white mt-3 ">
+        Submit
       </button>
     </form>
   );

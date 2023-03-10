@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <div>
-      <NavLink to="/newStudent" className="btn">
+      <NavLink to="/new" className="btn">
         Add Student
       </NavLink>
     </div>

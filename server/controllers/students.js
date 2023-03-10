@@ -44,7 +44,9 @@ const createStudent = async (req, res, next) => {
     const newStudent = await Student.create(req.body);
     res.status(201).json(newStudent);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log("WWWWWWWWWW", error);
+    next(new ErrorResponse(error));
+    //res.status(500).json({ message: error.message });
   }
 };
 
