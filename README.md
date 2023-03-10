@@ -1,3 +1,16 @@
-# Backend with Express.js and MongoDB
+# Fullstack App
 
-utilizing MVC
+just playing a round
+
+- utilizing MVC pattern
+- deployed on render
+
+## Backend
+
+- Express.js
+- MongoDB
+
+## Frontend
+
+- React
+- Tailwind

@@ -7,9 +7,14 @@ const {
   getStudentById,
 } = require("../controllers/students");
 
+// studentFinder is middleware for routes with /:id
+const studentFinder = require("../middlewares/studentFinder");
+
 studentsRouter.get("/", getAllStudents);
-studentsRouter.put("/:id", updateStudent);
+
+// studentFinder middleware needs to be added for every route, where it is necessary
+studentsRouter.put("/:id", studentFinder, updateStudent);
 studentsRouter.post("/", createStudent);
-studentsRouter.get("/:id", getStudentById);
+studentsRouter.get("/:id", studentFinder, getStudentById);
 
 module.exports = studentsRouter;

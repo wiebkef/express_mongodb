@@ -6,10 +6,14 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 const app = express();
 const studentsRouter = require("./routes/students");
+const errorHandler = require("./middlewares/errorHandler");
 
 app.use(cors());
 app.use(express.json());
 app.use("/api/students", studentsRouter);
+
+// errorHandler is middleware for all routes
+app.use(errorHandler);
 
 /* joining and normalizing paths for deployment */
 if (process.env.NODE_ENV === "production") {
